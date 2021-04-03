@@ -1,4 +1,4 @@
-const container = document.getElementById('grid-container');
+const container = document.getElementById('button-container');
 
 const makeCalculatorButtons = () => {
     container.style.setProperty('--grid-rows', 5);
