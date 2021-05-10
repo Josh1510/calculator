@@ -6,6 +6,12 @@
     --background: grey;
 }
 
+#screen-container {
+    height: 100px;
+    width: 320px;
+    background-color: aquamarine;
+}
+
 #button-container {
     background-color: var(--background);
     display: grid;
