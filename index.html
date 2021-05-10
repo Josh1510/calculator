@@ -11,12 +11,6 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="styles.css" />
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
-            window.jQuery ||
-                document.write('<script src="jquery.js"><\/script>');
-        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -26,7 +20,32 @@
             </p>
         <![endif]-->
 
-        <div id="button-container"></div>
+        <div id="button-container" style="--grid-rows: 6; --grid-cols: 4">
+            <div class="operator-button" id="percentage">%</div>
+            <div class="operator-button" id="clear-entry">CE</div>
+            <div class="operator-button" id="clear-all">C</div>
+            <div class="operator-button" id="backspace">&lt;-</div>
+            <div class="operator-button" id="reciprocal">1/X</div>
+            <div class="operator-button" id="square">x²</div>
+            <div class="operator-button" id="square-root">2√x</div>
+            <div class="operator-button" id="devide">÷</div>
+            <div class="number-button" id="7">7</div>
+            <div class="number-button" id="8">8</div>
+            <div class="number-button" id="9">9</div>
+            <div class="operator-button" id="multiply">X</div>
+            <div class="number-button" id="4">4</div>
+            <div class="number-button" id="5">5</div>
+            <div class="number-button" id="6">6</div>
+            <div class="operator-button" id="subtract">-</div>
+            <div class="number-button" id="1">1</div>
+            <div class="number-button" id="2">2</div>
+            <div class="number-button" id="3">3</div>
+            <div class="operator-button" id="addition">+</div>
+            <div class="operator-button" id="change-atrithmatic">+/-</div>
+            <div class="number-button" id="0">0</div>
+            <div class="number-button" id="decimal">.</div>
+            <div class="operator-button" is="equal">=</div>
+        </div>
 
         <script src="script.js" async defer></script>
     </body>
