@@ -3,9 +3,10 @@ const screen = document.querySelector('#screen');
 const screenSum = document.querySelector('#screen-sum');
 
 let operation;
-let firstValue;
-let secondValue;
+let firstValue = '';
+let secondValue = '';
 let total = '';
+let equalClicked = false;
 
 //selectors for operator buttons
 const percentageButton = document.querySelector('#percentage');
@@ -62,6 +63,12 @@ numberButtons.forEach((numberButton) =>
 );
 
 function appendValue(value) {
+    if (screen.textContent == total && total != '') {
+        firstValue = total;
+        // secondValue = '';
+        screen.textContent = '';
+        // screenSum.textContent = total;
+    }
     screen.textContent += value;
 }
 
@@ -74,8 +81,8 @@ function clearEntry() {
 }
 
 function clearAll() {
-    firstValue = null;
-    secondValue = null;
+    firstValue = '';
+    secondValue = '';
     screenSum.textContent = '';
     screen.textContent = '';
     total = '';
@@ -91,12 +98,16 @@ function square() {}
 function squareRoot() {}
 function devide() {}
 function multiply() {
-    operator('x');
+    operation = 'x';
+    operator(operation);
 }
 function subtract() {}
 function addition() {}
 function changeArithmatic() {}
-function equal() {}
+function equal() {
+    equalClicked = true;
+    operator(operation);
+}
 
 function decimal() {
     if (screen.textContent.includes('.')) {
@@ -115,17 +126,27 @@ function operator(operator) {
         screen.textContent = '';
     }
 
-    firstValue === null || firstValue === undefined
-        ? (firstValue = screen.textContent)
-        : (secondValue = screen.textContent);
+    if (firstValue === '') {
+        firstValue = screen.textContent;
+    } else if (secondValue === '') {
+        secondValue = screen.textContent;
+    }
 
     screenSum.textContent = screen.textContent;
     screenSum.textContent += ' ' + operator;
 
-    if (secondValue != null || secondValue != undefined) {
+    if (secondValue != '') {
+        //if (screenSum.textContent.includes('=')) {}
         total = calculate(firstValue, operator, secondValue);
-        screenSum.textContent =
-            firstValue + ' ' + operator + ' ' + secondValue + ' =';
+
+        if (equalClicked == false) {
+            screenSum.textContent = total + ' ' + operator;
+        } else {
+            screenSum.textContent =
+                firstValue + ' ' + operator + ' ' + secondValue + ' =';
+            equalClicked = false;
+            firstValue = total;
+        }
     }
 
     screen.textContent = total;
