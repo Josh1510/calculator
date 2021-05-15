@@ -56,7 +56,7 @@ decimalButton.addEventListener('click', decimal);
 // const reciprocal = (a) => 1 / a;
 // const percentage = (a, b) => b / reciprocal(a) / 100;
 // const changeArithmatic = (a) => a * -1;
-
+//
 /////
 numberButtons.forEach((numberButton) =>
     numberButton.addEventListener('click', () => appendValue(numberButton.id))
