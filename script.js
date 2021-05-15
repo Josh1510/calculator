@@ -1,4 +1,5 @@
 const numberButtons = document.querySelectorAll('.number-button');
+const operatorButtons = document.querySelectorAll('.operator-button');
 const screen = document.querySelector('#screen');
 const screenSum = document.querySelector('#screen-sum');
 
@@ -9,42 +10,42 @@ let total = '';
 let equalClicked = false;
 
 //selectors for operator buttons
-const percentageButton = document.querySelector('#percentage');
-const clearEntryButton = document.querySelector('#clear-entry');
-const clearAllButton = document.querySelector('#clear-all');
-const backspaceButton = document.querySelector('#backspace');
+// const percentageButton = document.querySelector('#percentage');
+// const clearEntryButton = document.querySelector('#clear-entry');
+// const clearAllButton = document.querySelector('#clear-all');
+// const backspaceButton = document.querySelector('#backspace');
 
-const reciprocalButton = document.querySelector('#reciprocal');
-const squareButton = document.querySelector('#square');
-const squareRootButton = document.querySelector('#square-root');
-const devideButton = document.querySelector('#devide');
+// const reciprocalButton = document.querySelector('#reciprocal');
+// const squareButton = document.querySelector('#square');
+// const squareRootButton = document.querySelector('#square-root');
+// const devideButton = document.querySelector('#devide');
 
-const multiplyButton = document.querySelector('#multiply');
-const subtractButton = document.querySelector('#subtract');
-const additionButton = document.querySelector('#addition');
-const changeArithmaticButton = document.querySelector('#change-arithmatic');
-const equalButton = document.querySelector('#equal');
+// const multiplyButton = document.querySelector('#multiply');
+// const subtractButton = document.querySelector('#subtract');
+// const additionButton = document.querySelector('#addition');
+// const changeArithmaticButton = document.querySelector('#change-arithmatic');
+// const equalButton = document.querySelector('#equal');
 
-const decimalButton = document.querySelector('#decimal');
+// const decimalButton = document.querySelector('#decimal');
 
-//listeners for operator buttons
-percentageButton.addEventListener('click', percentage);
-clearEntryButton.addEventListener('click', clearEntry);
-clearAllButton.addEventListener('click', clearAll);
-backspaceButton.addEventListener('click', backspaceNumber);
+// //listeners for operator buttons
+// percentageButton.addEventListener('click', percentage);
+// clearEntryButton.addEventListener('click', clearEntry);
+// clearAllButton.addEventListener('click', clearAll);
+// backspaceButton.addEventListener('click', backspaceNumber);
 
-reciprocalButton.addEventListener('click', reciprocal);
-squareButton.addEventListener('click', square);
-squareRootButton.addEventListener('click', squareRoot);
-devideButton.addEventListener('click', devide);
+// reciprocalButton.addEventListener('click', reciprocal);
+// squareButton.addEventListener('click', square);
+// squareRootButton.addEventListener('click', squareRoot);
+// devideButton.addEventListener('click', devide);
 
-multiplyButton.addEventListener('click', multiply);
-subtractButton.addEventListener('click', subtract);
-additionButton.addEventListener('click', addition);
-changeArithmaticButton.addEventListener('click', changeArithmatic);
-equalButton.addEventListener('click', equal);
+// multiplyButton.addEventListener('click', multiply);
+// subtractButton.addEventListener('click', subtract);
+// additionButton.addEventListener('click', addition);
+// changeArithmaticButton.addEventListener('click', changeArithmatic);
+// equalButton.addEventListener('click', equal);
 
-decimalButton.addEventListener('click', decimal);
+// decimalButton.addEventListener('click', decimal);
 
 //Calculator operators / functions
 // const addition = (a, b) => a + b;
@@ -60,6 +61,11 @@ decimalButton.addEventListener('click', decimal);
 /////
 numberButtons.forEach((numberButton) =>
     numberButton.addEventListener('click', () => appendValue(numberButton.id))
+);
+
+/////// THIS NEEDS TO CALL FUNCTION BASED ON ID CLICKED
+operatorButtons.forEach((operatorButton) =>
+    operatorButton.addEventListener('click', () => operatorButton.id())
 );
 
 function appendValue(value) {
