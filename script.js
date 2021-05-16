@@ -3,160 +3,126 @@ const operatorButtons = document.querySelectorAll('.operator-button');
 const screen = document.querySelector('#screen');
 const screenSum = document.querySelector('#screen-sum');
 
+let a = 1;
+let b = 2;
+
 let operation;
 let firstValue = '';
 let secondValue = '';
 let total = '';
 let equalClicked = false;
 
-//selectors for operator buttons
-// const percentageButton = document.querySelector('#percentage');
-// const clearEntryButton = document.querySelector('#clear-entry');
-// const clearAllButton = document.querySelector('#clear-all');
-// const backspaceButton = document.querySelector('#backspace');
-
-// const reciprocalButton = document.querySelector('#reciprocal');
-// const squareButton = document.querySelector('#square');
-// const squareRootButton = document.querySelector('#square-root');
-// const devideButton = document.querySelector('#devide');
-
-// const multiplyButton = document.querySelector('#multiply');
-// const subtractButton = document.querySelector('#subtract');
-// const additionButton = document.querySelector('#addition');
-// const changeArithmaticButton = document.querySelector('#change-arithmatic');
-// const equalButton = document.querySelector('#equal');
-
-// const decimalButton = document.querySelector('#decimal');
-
-// //listeners for operator buttons
-// percentageButton.addEventListener('click', percentage);
-// clearEntryButton.addEventListener('click', clearEntry);
-// clearAllButton.addEventListener('click', clearAll);
-// backspaceButton.addEventListener('click', backspaceNumber);
-
-// reciprocalButton.addEventListener('click', reciprocal);
-// squareButton.addEventListener('click', square);
-// squareRootButton.addEventListener('click', squareRoot);
-// devideButton.addEventListener('click', devide);
-
-// multiplyButton.addEventListener('click', multiply);
-// subtractButton.addEventListener('click', subtract);
-// additionButton.addEventListener('click', addition);
-// changeArithmaticButton.addEventListener('click', changeArithmatic);
-// equalButton.addEventListener('click', equal);
-
-// decimalButton.addEventListener('click', decimal);
-
-//Calculator operators / functions
-// const addition = (a, b) => a + b;
-// const subtract = (a, b) => a - b;
-// multiply = (a, b) => a * b;
-// const devide = (a, b) => a / b;
-// const square = (a) => a ** 2;
-// const squareRoot = (a) => Math.sqrt(a);
-// const reciprocal = (a) => 1 / a;
-// const percentage = (a, b) => b / reciprocal(a) / 100;
-// const changeArithmatic = (a) => a * -1;
-//
-/////
+//event listeners for number buttons
 numberButtons.forEach((numberButton) =>
     numberButton.addEventListener('click', () => appendValue(numberButton.id))
 );
 
+//event listeners for operator buttons
 /////// THIS NEEDS TO CALL FUNCTION BASED ON ID CLICKED
 operatorButtons.forEach((operatorButton) =>
-    operatorButton.addEventListener('click', () => operatorButton.id())
+    operatorButton.addEventListener('click', () =>
+        operate['operator_' + operatorButton.id]()
+    )
 );
+
+//operators
+const operate = {
+    operator_addition: function (a, b) {
+        return a + b;
+    },
+    operator_subtract: function (a, b) {
+        return a - b;
+    },
+    operator_multiply: function (a, b) {
+        return a * b;
+    },
+    operator_devide: function (a, b) {
+        return a / b;
+    },
+    operator_square: function (a) {
+        return a ** 2;
+    },
+    operator_squareRoot: function (a) {
+        return Math.sqrt(a);
+    },
+    operator_reciprocal: function (a) {
+        return 1 / a;
+    },
+    operator_percentage: function (a, b) {
+        return b / reciprocal(a) / 100;
+    },
+    operator_changeArithmatic: function (a, b) {
+        return a * -1;
+    },
+
+    operator_decimal: function () {
+        if (screen.textContent.includes('.')) {
+            console.log("decimal already written, can't have multiple");
+            return;
+        }
+
+        return screen.textContent === ''
+            ? (screen.textContent = '0.')
+            : (screen.textContent += '.');
+    },
+
+    operator_clearEntry: function () {
+        screen.textContent = '';
+        total = '';
+    },
+
+    operator_clearAll: function () {
+        firstValue = '';
+        secondValue = '';
+        screenSum.textContent = '';
+        operate[operator_clearEntry]();
+    },
+
+    operator_backspace: function () {
+        screen.textContent = screen.textContent.slice(0, -1);
+    },
+};
 
 function appendValue(value) {
     if (screen.textContent == total && total != '') {
         firstValue = total;
-        // secondValue = '';
         screen.textContent = '';
-        // screenSum.textContent = total;
     }
     screen.textContent += value;
 }
 
-function percentage() {}
+//////FIGURE THIS OUT
+// function operator(operator) {
+//     if (screen.textContent == total) {
+//         screenSum.textContent = total;
+//         screen.textContent = '';
+//     }
 
-//removes all entered numbers on the current line
-function clearEntry() {
-    screen.textContent = '';
-    total = '';
-}
+//     if (firstValue === '') {
+//         firstValue = screen.textContent;
+//     } else if (secondValue === '') {
+//         secondValue = screen.textContent;
+//     }
 
-function clearAll() {
-    firstValue = '';
-    secondValue = '';
-    screenSum.textContent = '';
-    screen.textContent = '';
-    total = '';
-}
+//     screenSum.textContent = screen.textContent;
+//     screenSum.textContent += ' ' + operator;
 
-//remove the last entered number
-function backspaceNumber() {
-    screen.textContent = screen.textContent.slice(0, -1);
-}
+//     if (secondValue != '') {
+//         //if (screenSum.textContent.includes('=')) {}
+//         total = calculate(firstValue, operator, secondValue);
 
-function reciprocal() {}
-function square() {}
-function squareRoot() {}
-function devide() {}
-function multiply() {
-    operation = 'x';
-    operator(operation);
-}
-function subtract() {}
-function addition() {}
-function changeArithmatic() {}
-function equal() {
-    equalClicked = true;
-    operator(operation);
-}
+//         if (equalClicked == false) {
+//             screenSum.textContent = total + ' ' + operator;
+//         } else {
+//             screenSum.textContent =
+//                 firstValue + ' ' + operator + ' ' + secondValue + ' =';
+//             equalClicked = false;
+//             firstValue = total;
+//         }
+//     }
 
-function decimal() {
-    if (screen.textContent.includes('.')) {
-        console.log("decimal already written, can't have multiple");
-        return;
-    }
-
-    return screen.textContent === ''
-        ? (screen.textContent = '0.')
-        : (screen.textContent += '.');
-}
-
-function operator(operator) {
-    if (screen.textContent == total) {
-        screenSum.textContent = total;
-        screen.textContent = '';
-    }
-
-    if (firstValue === '') {
-        firstValue = screen.textContent;
-    } else if (secondValue === '') {
-        secondValue = screen.textContent;
-    }
-
-    screenSum.textContent = screen.textContent;
-    screenSum.textContent += ' ' + operator;
-
-    if (secondValue != '') {
-        //if (screenSum.textContent.includes('=')) {}
-        total = calculate(firstValue, operator, secondValue);
-
-        if (equalClicked == false) {
-            screenSum.textContent = total + ' ' + operator;
-        } else {
-            screenSum.textContent =
-                firstValue + ' ' + operator + ' ' + secondValue + ' =';
-            equalClicked = false;
-            firstValue = total;
-        }
-    }
-
-    screen.textContent = total;
-}
+//     screen.textContent = total;
+// }
 
 function calculate(firstValue, operator, secondValue) {
     switch (operator) {
