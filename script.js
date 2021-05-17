@@ -1,29 +1,11 @@
 const numberButtons = document.querySelectorAll('.number-button');
 const operatorButtons = document.querySelectorAll('.operator-button');
-const screen = document.querySelector('#screen');
-const screenSum = document.querySelector('#screen-sum');
+const screenLower = document.querySelector('#screen');
+const screenUpper = document.querySelector('#screen-sum');
 
-let a = 1;
-let b = 2;
-
-let operation;
 let firstValue = '';
 let secondValue = '';
 let total = '';
-let equalClicked = false;
-
-//event listeners for number buttons
-numberButtons.forEach((numberButton) =>
-    numberButton.addEventListener('click', () => appendValue(numberButton.id))
-);
-
-//event listeners for operator buttons
-/////// THIS NEEDS TO CALL FUNCTION BASED ON ID CLICKED
-operatorButtons.forEach((operatorButton) =>
-    operatorButton.addEventListener('click', () =>
-        operate['operator_' + operatorButton.id]()
-    )
-);
 
 //operators
 const operate = {
@@ -56,77 +38,89 @@ const operate = {
     },
 
     operator_decimal: function () {
-        if (screen.textContent.includes('.')) {
+        if (screenLower.textContent.includes('.')) {
             console.log("decimal already written, can't have multiple");
             return;
         }
 
-        return screen.textContent === ''
-            ? (screen.textContent = '0.')
-            : (screen.textContent += '.');
+        return screenLower.textContent === ''
+            ? (screenLower.textContent = '0.')
+            : (screenLower.textContent += '.');
     },
 
     operator_clearEntry: function () {
-        screen.textContent = '';
-        total = '';
+        screenLower.textContent = '';
     },
 
     operator_clearAll: function () {
         firstValue = '';
         secondValue = '';
-        screenSum.textContent = '';
+        total = '';
+        screenUpper.textContent = '';
         operate[operator_clearEntry]();
     },
 
     operator_backspace: function () {
-        screen.textContent = screen.textContent.slice(0, -1);
+        screenLower.textContent = screenLower.textContent.slice(0, -1);
     },
 };
 
+//event listeners for number buttons
+numberButtons.forEach((numberButton) =>
+    numberButton.addEventListener('click', () => appendValue(numberButton.id))
+);
+
+operatorButtons.forEach((operatorButton) =>
+    operatorButton.addEventListener(
+        'click',
+        operate[`operator_${operatorButton.id}`]
+    )
+);
+
 function appendValue(value) {
-    if (screen.textContent == total && total != '') {
+    if (screenLower.textContent == total && total != '') {
         firstValue = total;
-        screen.textContent = '';
+        screenLower.textContent = '';
     }
-    screen.textContent += value;
+    screenLower.textContent += value;
 }
 
 //////FIGURE THIS OUT
 // function operator(operator) {
-//     if (screen.textContent == total) {
-//         screenSum.textContent = total;
-//         screen.textContent = '';
+//     if (screenLower.textContent == total) {
+//         screenUpper.textContent = total;
+//         screenLower.textContent = '';
 //     }
 
 //     if (firstValue === '') {
-//         firstValue = screen.textContent;
+//         firstValue = screenLower.textContent;
 //     } else if (secondValue === '') {
-//         secondValue = screen.textContent;
+//         secondValue = screenLower.textContent;
 //     }
 
-//     screenSum.textContent = screen.textContent;
-//     screenSum.textContent += ' ' + operator;
+//     screenUpper.textContent = screenLower.textContent;
+//     screenUpper.textContent += ' ' + operator;
 
 //     if (secondValue != '') {
-//         //if (screenSum.textContent.includes('=')) {}
+//         //if (screenUpper.textContent.includes('=')) {}
 //         total = calculate(firstValue, operator, secondValue);
 
 //         if (equalClicked == false) {
-//             screenSum.textContent = total + ' ' + operator;
+//             screenUpper.textContent = total + ' ' + operator;
 //         } else {
-//             screenSum.textContent =
+//             screenUpper.textContent =
 //                 firstValue + ' ' + operator + ' ' + secondValue + ' =';
 //             equalClicked = false;
 //             firstValue = total;
 //         }
 //     }
 
-//     screen.textContent = total;
+//     screenLower.textContent = total;
 // }
 
-function calculate(firstValue, operator, secondValue) {
-    switch (operator) {
-        case 'x':
-            return firstValue * secondValue;
-    }
-}
+// function calculate(firstValue, operator, secondValue) {
+//     switch (operator) {
+//         case 'x':
+//             return firstValue * secondValue;
+//     }
+// }
