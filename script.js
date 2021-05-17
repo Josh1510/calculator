@@ -3,14 +3,20 @@ const operatorButtons = document.querySelectorAll('.operator-button');
 const screenLower = document.querySelector('#screen');
 const screenUpper = document.querySelector('#screen-sum');
 
-let firstValue = '';
-let secondValue = '';
+let firstValue = '1';
+let secondValue = '2';
+let usedOperator = '';
 let total = '';
+
+// let a = 1;
+// let b = 2;
+// let c = 'multiply';
 
 //operators
 const operate = {
     operator_addition: function (a, b) {
-        return a + b;
+        console.log(`a:${a}  b:${b}`);
+        return parseFloat(a) + parseFloat(b);
     },
     operator_subtract: function (a, b) {
         return a - b;
@@ -19,6 +25,7 @@ const operate = {
         return a * b;
     },
     operator_devide: function (a, b) {
+        console.log(a / b);
         return a / b;
     },
     operator_square: function (a) {
@@ -31,9 +38,9 @@ const operate = {
         return 1 / a;
     },
     operator_percentage: function (a, b) {
-        return b / reciprocal(a) / 100;
+        return b / (1 / a) / 100;
     },
-    operator_changeArithmatic: function (a, b) {
+    operator_changeArithmatic: function (a) {
         return a * -1;
     },
 
@@ -57,7 +64,7 @@ const operate = {
         secondValue = '';
         total = '';
         screenUpper.textContent = '';
-        operate[operator_clearEntry]();
+        screenLower.textContent = '';
     },
 
     operator_backspace: function () {
@@ -70,10 +77,11 @@ numberButtons.forEach((numberButton) =>
     numberButton.addEventListener('click', () => appendValue(numberButton.id))
 );
 
+//PROBABLY NEED TO CHANGE FUNCTION CALLED OR ADD CHECK TO MAKE SURE NUMBERS EXIST
 operatorButtons.forEach((operatorButton) =>
-    operatorButton.addEventListener(
-        'click',
-        operate[`operator_${operatorButton.id}`]
+    operatorButton.addEventListener('click', () =>
+        //operatorButtonClicked(firstValue, secondValue, operatorButton.id)
+        operatorButtonClicked(operatorButton.id)
     )
 );
 
@@ -83,6 +91,37 @@ function appendValue(value) {
         screenLower.textContent = '';
     }
     screenLower.textContent += value;
+}
+
+function operatorButtonClicked(operator) {
+    if (
+        operator != 'equal' &&
+        isNaN(
+            parseFloat(operate[`operator_${operator}`](firstValue, secondValue))
+        ) == false
+    ) {
+        usedOperator = operator;
+        operate[`operator_${operator}`](firstValue, secondValue);
+        console.log(`first value ${firstValue}`);
+        console.log(`second value ${secondValue}`);
+        console.log(`operator ${usedOperator}`);
+        console.log(
+            `total = ${operate[`operator_${usedOperator}`](
+                firstValue,
+                secondValue,
+                operator
+            )}`
+        );
+    } else if (usedOperator == '') {
+        console.log('no operator set');
+    } else {
+        total = operate[`operator_${usedOperator}`](firstValue, secondValue);
+        console.log('equals');
+        console.log(`first value ${firstValue}`);
+        console.log(`first value ${secondValue}`);
+        console.log(`first value ${usedOperator}`);
+        console.log(`total ${total}`);
+    }
 }
 
 //////FIGURE THIS OUT
